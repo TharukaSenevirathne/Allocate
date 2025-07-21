@@ -1,0 +1,50 @@
+/* Ensure full viewport is used and no scrollbars appear */
+
+
+/* Main container takes full screen, no overflow */
+.timetable-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8fafc;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header remains at top */
+.timetable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.timetable-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.home-button {
+  background-color: #1a252f; /* Blue */
+  color: white;
+  margin-right: 20px;
+  padding: 8px 24px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.home-button:hover {
+  background-color: #30353a; /* Darker blue on hover */
+}
+
+/* Wrapper takes remaining space without scrolling */
+.timetable-wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+}
