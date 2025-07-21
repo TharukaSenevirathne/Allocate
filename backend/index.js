@@ -6,6 +6,9 @@ import studentsRoute from "./routes/students.js";
 import staffRoute from "./routes/staff.js";
 import bookingsRoute from "./routes/bookings.js";
 import timetableRoute from "./routes/timetable.js";
+import authRoute from "./routes/auth.js";
+
+
 
  
 
@@ -37,6 +40,8 @@ app.use("/api", studentsRoute);
 app.use("/api", staffRoute);
 app.use("/api", bookingsRoute);
 app.use("/api", timetableRoute);
+app.use("/api", authRoute);
+
 
 
 app.get("/", (req, res) => {

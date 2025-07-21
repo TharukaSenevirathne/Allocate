@@ -68,8 +68,7 @@ export default function HallList() {
         <div className="admin-header">
           <h1 className="admin-title">Hall List</h1>
           <div className="nav-buttons">
-            <button className="nav-button" onClick={() => navigate('/')}>Dashboard</button>
-            <button className="nav-button" onClick={() => navigate('/add-hall')}>Add New Hall</button>
+            <button className="nav-button" onClick={() => navigate(-1)}>Dashboard</button>
           </div>
         </div>
 

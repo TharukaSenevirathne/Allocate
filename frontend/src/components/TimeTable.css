@@ -1,50 +1,80 @@
-/* Ensure full viewport is used and no scrollbars appear */
-
-
-/* Main container takes full screen, no overflow */
 .timetable-container {
-  width: 100vw;
-  height: 100vh;
-  background-color: #f8fafc;
-  padding: 16px;
-  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.47);
   overflow: hidden;
 }
-
-/* Header remains at top */
 .timetable-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-  flex-shrink: 0;
+  margin-bottom: 24px;
 }
-
 .timetable-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1e293b;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a365d;
+  margin: 0;
+  letter-spacing: -0.5px;
 }
-
 .home-button {
-  background-color: #1a252f; /* Blue */
+  background: linear-gradient(135deg, #03203b, #2c5282);
   color: white;
-  margin-right: 20px;
-  padding: 8px 24px;
-  border-radius: 6px;
   border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-
 .home-button:hover {
-  background-color: #30353a; /* Darker blue on hover */
+  background: linear-gradient(135deg, #2b6cb0, #2a4365);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
-
-/* Wrapper takes remaining space without scrolling */
+.home-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 .timetable-wrapper {
-  flex-grow: 1;
+  flex: 1;
   overflow: hidden;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+.loading-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3182ce;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 16px;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

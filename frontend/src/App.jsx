@@ -8,6 +8,7 @@ import HallList from './pages/HallList'; // Uncomment if you want to use HallLis
 import Hall from './pages/Hall'; // Uncomment if you want to use Hall
 import { TimeTable } from "./components/TimeTable";
 import { HallBookings } from "./pages/HallBookings";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         <Route path="/hall/:id" element={<Hall />} />
         <Route path="/time-table" element={<TimeTable />} />
         <Route path="/hall-time-table/:hallId" element={<HallBookings />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
+
+
 
         
         

@@ -1,112 +1,147 @@
-/* Full-screen background */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: url('../assets/login-bg-edited.png') no-repeat center center fixed;
-  background-size: cover;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* Center the login form */
-.login-container {
-  height: 100vh;
+/* Full-screen login container */
+.login-login-container {
+  min-height: 100vh;
+  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+background: linear-gradient(to bottom right, #a2d9f590, #6fbf7397);
+  padding: 1rem;
 }
 
-/* Login form box */
-.login-form {
+/* Login form wrapper */
+.login-login-form {
   background-color: rgba(0, 26, 51, 0.9);
-  padding: 30px 40px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
-  width: 320px;
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 28rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 1.5rem;
+}
+
+/* Title */
+.login-form-title {
+  font-size: 1.75rem;
+  font-weight: bold;
   color: white;
-}
-
-.form-title {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 1rem;
 }
 
-/* Form group wrapper */
-.form-group {
+/* Form group with floating label */
+.login-form-group {
   position: relative;
+}
+
+.login-form-group input {
   width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #0a2540;
+  border: 1px solid #1e3a5f;
+  color: white;
+  transition: all 0.3s ease;
 }
 
-/* Input styling */
-.form-group input {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 8px;
-  font-size: 14px;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  background-color: #ddd;
+.login-form-group input:focus {
   outline: none;
-  display: block;
-  transition: border 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 0 0 2px #00cc88;
 }
 
-/* Floating label */
-.form-group label {
+.login-form-group input::placeholder {
+  color: transparent;
+}
+
+.login-form-group label {
   position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  padding: 0 4px;
-  font-size: 14px;
-  color: #7F8C8D;
-  pointer-events: none;
-  transition: 0.2s ease all;
+  left: 1rem;
+
+  top: -0.625rem;
+  font-size: 0.875rem;
+  color: #a0aec0;
+  background-color: #0a2540;
+  padding: 0 rem;
+  transition: all 0.3s ease;
 }
 
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label {
-  top: -9px;
-  left: 8px;
-  font-size: 14px;
-  color: #ddd;
+.login-form-group input:placeholder-shown + label {
+  font-size: 1rem;
+  top: 0.875rem;
 }
 
-/* Forgot password */
-.forgot-password {
-  font-size: 12px;
-  color: #ccc;
-  text-align: center;
+.login-form-group input:focus + label {
+  top: -0.625rem;
+  font-size: 0.875rem;
+  color: #00cc88;
+}
+
+/* Forgot Password */
+.login-forgot-password {
+  text-align: right;
+  font-size: 0.875rem;
+  color: #cbd5e0;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.forgot-password:hover {
-  text-decoration: underline;
-  color: #fff;
+.login-forgot-password:hover {
+  color: #00cc88;
 }
 
-/* Submit button */
-.login-form button {
-  margin-left: auto;
-  margin-right: auto;
-  width: 70%;
-  padding: 10px;
+/* Login button */
+.login-login-form button {
+  width: 100%;
+  padding: 0.75rem 1rem;
   background-color: #00cc88;
   color: white;
-  font-weight: bold;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   border: none;
-  border-radius: 8px;
+  transition: all 0.3s ease;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.login-form button:hover {
+.login-login-form button:hover {
   background-color: #00b376;
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.login-login-form button:active {
+  transform: scale(0.98);
+}
+
+.login-login-form button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #00cc88, 0 0 0 4px rgba(0, 204, 136, 0.5);
+}
+
+.login-login-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-message {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-message.success {
+  background-color: rgba(22, 101, 52, 0.2);
+  color: #38a169;
+  border: 1px solid #38a169;
+}
+
+.login-message.error {
+  background-color: rgba(153, 27, 27, 0.2);
+  color: #e53e3e;
+  border: 1px solid #e53e3e;
 }

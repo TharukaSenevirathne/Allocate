@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './TimeTable.css';
 
+
+
 export const TimeTable = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [halls, setHalls] = useState([]);
@@ -103,7 +105,8 @@ export const TimeTable = () => {
     <div className="timetable-container">
       <div className="timetable-header">
         <h1 className="timetable-title">Timetable</h1>
-        <button className="home-button" onClick={() => navigate("/")}>Home</button>
+        <button className="home-button" onClick={() => navigate(-1)}>Back</button>
+
       </div>
       <DateNavigation 
         currentDate={currentDate} 
