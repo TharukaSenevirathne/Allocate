@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../styles/Forms.css';
 
 const BookLectureEventForm = () => {
   const [step, setStep] = useState(1);
@@ -170,6 +171,18 @@ const BookLectureEventForm = () => {
             <div className="fm-step-line"></div>
             <div className="fm-step">2</div>
           </div>
+
+          {/* Select Hall moved to top */}
+          <div className="fm-form-group">
+            <select name="hallName" value={formData.hallName} onChange={handleChange} className="fm-form-select" required>
+              <option value="">Select Hall</option>
+              {hallOptions.map(hall => (
+                <option key={hall} value={hall}>{hall}</option>
+              ))}
+            </select>
+            <div className="fm-select-arrow">▼</div>
+          </div>
+
           <div className="fm-form-group">
             <input type="date" name="date" value={formData.date} onChange={handleChange} className="fm-form-input" placeholder=" " required />
             <label className="fm-form-label">Select Date</label>
@@ -204,15 +217,6 @@ const BookLectureEventForm = () => {
             />
             <label className="fm-form-label">End Time</label>
             <div className="fm-form-line"></div>
-          </div>
-          <div className="fm-form-group">
-            <select name="hallName" value={formData.hallName} onChange={handleChange} className="fm-form-select" required>
-              <option value="">Select Hall</option>
-              {hallOptions.map(hall => (
-                <option key={hall} value={hall}>{hall}</option>
-              ))}
-            </select>
-            <div className="fm-select-arrow">▼</div>
           </div>
           <div className="fm-form-button-container">
             <button type="submit" className="fm-form-button">

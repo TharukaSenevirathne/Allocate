@@ -17,8 +17,11 @@ import UpdateStudentForm from '../components/UpdateStudentForm';
 import UpdateHallForm from '../components/UpdateHallForm';
 import BookLectureEventForm from '../components/BookLectureEventForm';
 import AddNoteForm from '../components/AddNoteForm';
+import StudentList from './StudentList';
+
 
 import '../styles/AdminDashboard.css';
+import '../styles/forms.css'
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -90,6 +93,7 @@ export default function AdminDashboard() {
               <button className="admin-nav-button" onClick={() => navigate('/time-table')}>View Time Schedule</button>
               <button className="admin-nav-button" onClick={() => navigate('/hall-list')}>View Hall List</button>
               <button className="admin-nav-button" onClick={() => navigate('/staff-list')}>View Staff List</button>
+              <button className="admin-nav-button" onClick={() => navigate('/student-list')}>View Students List</button>
             </div>
           </header>
 

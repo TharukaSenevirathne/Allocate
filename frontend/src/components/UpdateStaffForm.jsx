@@ -155,13 +155,10 @@ const UpdateStaffForm = () => {
               className="fm-form-select"
               required
             >
-              <option value="IS">IS</option>
-              <option value="Computer">Computer</option>
-              <option value="DEIE">DEIE</option>
-              <option value="CEE">CEE</option>
-              <option value="MME">MME</option>
-              <option value="MENA">MENA</option>
-            </select>
+               <option value="CIS">CIS</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Software Engineering">Software Engineerin</option>
+          </select>
             <div className="fm-select-arrow">▼</div>
           </div>
 

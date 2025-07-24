@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../styles/Forms.css';
 
 const AddStudentForm = () => {
   const [formData, setFormData] = useState({
@@ -14,9 +15,16 @@ const AddStudentForm = () => {
     password: ""
   });
 
-  const [regPrefix, setRegPrefix] = useState("");
+  const [regDigits, setRegDigits] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // "success" or "error"
+
+  // Department short codes
+  const departmentCodes = {
+    "CIS": "CIS",
+    "Software Engineering": "SE",
+    "Data Science": "DS"
+  };
 
   useEffect(() => {
     if (message) {
@@ -30,27 +38,24 @@ const AddStudentForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "batch") {
-      const year = 1998 + parseInt(value);
-      setRegPrefix(`EG/${year}/`);
-      setFormData(prev => ({ ...prev, batch: value, reg_no: "" }));
-    } else if (name === "reg_no") {
-      const last4 = value.replace(/\D/g, "").slice(0, 4);
-      setFormData(prev => ({ ...prev, reg_no: regPrefix + last4 }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === "department" || name === "batch") && { reg_no: "" }
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const reg_no = `${formData.batch}${departmentCodes[formData.department] || ""}${regDigits}`;
+
     try {
       const response = await fetch("http://localhost:5000/api/students", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          reg_no,
           user_type: "Student"
         })
       });
@@ -70,7 +75,7 @@ const AddStudentForm = () => {
           lecturer_in_charge: "",
           password: ""
         });
-        setRegPrefix("");
+        setRegDigits("");
       } else {
         const data = await response.json();
         setMessage("❌ Failed to add student: " + (data.error || "Unknown error"));
@@ -82,6 +87,10 @@ const AddStudentForm = () => {
       setMessageType("error");
     }
   };
+
+  const fullRegNo = formData.batch && formData.department
+    ? `${formData.batch}${departmentCodes[formData.department] || ""}${regDigits}`
+    : "";
 
   return (
     <div className="fm-form-card">
@@ -97,78 +106,92 @@ const AddStudentForm = () => {
       )}
 
       <form onSubmit={handleSubmit}>
+        {/* Name */}
         <div className="fm-form-group">
           <input type="text" name="name" value={formData.name} onChange={handleChange} className="fm-form-input" placeholder=" " required />
           <label className="fm-form-label">Name</label>
           <div className="fm-form-line"></div>
         </div>
 
+        {/* Department */}
         <div className="fm-form-group">
-          <select name="batch" value={formData.batch} onChange={handleChange} className="fm-form-select" required>
-            <option value="">Select Batch</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
+          <select name="department" value={formData.department} onChange={handleChange} className="fm-form-select" required>
+            <option value="">Select Department</option>
+            <option value="CIS">CIS</option>
+            <option value="Software Engineering">Software Engineering</option>
+            <option value="Data Science">Data Science</option>
           </select>
           <div className="fm-select-arrow">▼</div>
         </div>
 
+        {/* Batch */}
+        <div className="fm-form-group">
+          <select name="batch" value={formData.batch} onChange={handleChange} className="fm-form-select" required>
+            <option value="">Select Batch</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+          </select>
+          <div className="fm-select-arrow">▼</div>
+        </div>
+
+        {/* Reg No - Digits input */}
         <div className="fm-form-group">
           <input
             type="text"
-            name="reg_no"
+            name="regDigits"
             inputMode="numeric"
             onChange={(e) => {
-              const inputDigits = e.target.value.replace(regPrefix, "").replace(/\D/g, "").slice(0, 4);
-              setFormData((prev) => ({
-                ...prev,
-                reg_no: regPrefix + inputDigits
-              }));
+              const digits = e.target.value.replace(/\D/g, "").slice(0, 4);
+              setRegDigits(digits);
             }}
-            value={formData.reg_no}
+            value={regDigits}
             className="fm-form-input"
             placeholder=" "
             required
-            disabled={!formData.batch}
+            disabled={!formData.batch || !formData.department}
+          />
+          <label className="fm-form-label">Last 3–4 Digits</label>
+          <div className="fm-form-line"></div>
+        </div>
+
+        {/* Display Full Reg No */}
+        <div className="fm-form-group">
+          <input
+            type="text"
+            className="fm-form-input"
+            value={fullRegNo}
+            readOnly
+            placeholder=" "
           />
           <label className="fm-form-label">Registration Number</label>
           <div className="fm-form-line"></div>
-          {regPrefix && <div className="fm-reg-prefix-indicator">{regPrefix}</div>}
         </div>
 
+        {/* Email */}
         <div className="fm-form-group">
           <input type="email" name="email" value={formData.email} onChange={handleChange} className="fm-form-input" placeholder=" " required />
           <label className="fm-form-label">Email</label>
           <div className="fm-form-line"></div>
         </div>
 
+        {/* Contact */}
         <div className="fm-form-group">
           <input type="text" name="contact_no" value={formData.contact_no} onChange={handleChange} className="fm-form-input" placeholder=" " required />
           <label className="fm-form-label">Contact Number</label>
           <div className="fm-form-line"></div>
         </div>
 
+        {/* Lecturer in Charge */}
         <div className="fm-form-group">
           <input type="text" name="lecturer_in_charge" value={formData.lecturer_in_charge} onChange={handleChange} className="fm-form-input" placeholder=" " required />
           <label className="fm-form-label">Lecturer in Charge</label>
           <div className="fm-form-line"></div>
         </div>
 
-        <div className="fm-form-group">
-          <select name="department" value={formData.department} onChange={handleChange} className="fm-form-select" required>
-            <option value="">Select Department</option>
-            <option value="Common">Common</option>
-            <option value="Computer">Computer</option>
-            <option value="EIE">EIE</option>
-            <option value="CEE">CEE</option>
-            <option value="MENA">MENA</option>
-            <option value="MME">MME</option>
-          </select>
-          <div className="fm-select-arrow">▼</div>
-        </div>
-
+        {/* Purpose */}
         <div className="fm-form-group">
           <select name="purpose" value={formData.purpose} onChange={handleChange} className="fm-form-select">
             <option value="">Select Purpose</option>
@@ -179,6 +202,7 @@ const AddStudentForm = () => {
           <div className="fm-select-arrow">▼</div>
         </div>
 
+        {/* Society Name */}
         {formData.purpose === "Chair" && (
           <div className="fm-form-group">
             <input type="text" name="society_name" value={formData.society_name} onChange={handleChange} className="fm-form-input" placeholder=" " required />
@@ -187,12 +211,14 @@ const AddStudentForm = () => {
           </div>
         )}
 
+        {/* Password */}
         <div className="fm-form-group">
           <input type="password" name="password" value={formData.password} onChange={handleChange} className="fm-form-input" placeholder=" " required />
           <label className="fm-form-label">Temporary Password</label>
           <div className="fm-form-line"></div>
         </div>
 
+        {/* Submit */}
         <div className="fm-form-button-container">
           <button type="submit" className="fm-form-button">
             <span>Confirm</span>

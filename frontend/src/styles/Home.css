@@ -113,9 +113,9 @@ body.allocate-home-active {
   color: var(--text-light);
 }
 .allocate-secondary-button {
-  background-color: rgb(236, 42, 42);
+  background-color: #00b376;
   color: var(--text-light);
-  border: 2px solid var(--text-light);
+  
 }
 .allocate-button-text {
   position: relative;
@@ -137,7 +137,7 @@ body.allocate-home-active {
 }
 .allocate-primary-button:hover .allocate-button-text,
 .allocate-secondary-button:hover .allocate-button-text {
-  transform: translateX(-5px);
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
 
 }
 .allocate-primary-button:hover .allocate-button-icon,
@@ -149,12 +149,14 @@ body.allocate-home-active {
   background-color:#103d39;
 }
 .allocate-secondary-button:hover {
-  background-color: red;
+  background-color: #029161;
 }
 .allocate-notices-panel {
   width: 350px;
-  margin-right: 3rem;
-  display: flex;
+  margin-top: 50px;
+  margin-left: 150px;
+  margin-right: 10px;
+  display:block;
   align-items: center;
 }
 .allocate-notices-content {

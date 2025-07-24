@@ -95,9 +95,6 @@ const AddHallForm = () => {
             <option value="Admin">Admin</option>
             <option value="New Lecture Hall Building">New Lecture Hall Building</option>
             <option value="Old Lecture Hall Building">Old Lecture Hall Building</option>
-            <option value="DEIE Building">DEIE Building</option>
-            <option value="MME Building">MME Building</option>
-            <option value="CEE Building">CEE Building</option>
           </select>
           <div className="fm-select-arrow">▼</div>
         </div>

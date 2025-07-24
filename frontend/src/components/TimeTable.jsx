@@ -99,7 +99,7 @@ export const TimeTable = () => {
   const generateTimeSlots = () => {
     const slots = [];
     const startHour = 8;
-    const endHour = 21;
+    const endHour = 23;
     for (let hour = startHour; hour <= endHour; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         if (hour === endHour && minute === 30) continue;
