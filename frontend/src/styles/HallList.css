@@ -391,3 +391,17 @@
   font-weight: 500;
   color: #088484;
 }
+
+.clickable-name {
+  cursor: pointer;
+  /* Remove link styles */
+  color: inherit;
+  text-decoration: none;
+  /* Optional subtle hover effect */
+}
+
+.clickable-name:hover,
+.clickable-name:focus {
+  background-color: #f0f0f0; /* subtle highlight on hover/focus */
+  outline: none;
+}
