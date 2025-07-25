@@ -447,3 +447,32 @@ body {
   color: var(--secondary-color);
   padding: 0 0.25rem;
 }
+
+.fm-search-dropdown li.fm-search-result {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.fm-search-dropdown li.fm-search-result:hover {
+  background-color: #f0f0f0;
+}
+
+.fm-search-result .hall-name {
+  font-weight: 500;
+}
+
+.fm-search-result .hall-building {
+  color: #555;
+  margin-left: 4px;
+}
+
+.fm-search-result .hall-update-hint {
+  color: #888;
+  font-style: italic;
+  font-size: 12px;
+}

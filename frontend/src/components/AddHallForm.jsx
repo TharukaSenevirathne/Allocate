@@ -92,9 +92,9 @@ const AddHallForm = () => {
         <div className="fm-form-group">
           <select name="mainBuilding" value={formData.mainBuilding} onChange={handleChange} className="fm-form-select" required>
             <option value="">Select Main Building</option>
-            <option value="Admin">Admin</option>
-            <option value="New Lecture Hall Building">New Lecture Hall Building</option>
-            <option value="Old Lecture Hall Building">Old Lecture Hall Building</option>
+              <option value="-">No Main Building</option>
+              <option value="Applied Sciences - Faculty Building">Applied Science Faculty Building</option>
+              <option value="Faculty Building">Faculty Building</option>
           </select>
           <div className="fm-select-arrow">▼</div>
         </div>

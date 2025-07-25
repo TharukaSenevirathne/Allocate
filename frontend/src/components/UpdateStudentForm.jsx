@@ -147,8 +147,10 @@ const UpdateStudentForm = () => {
       {searchResults.length > 0 && (
         <ul className="fm-search-dropdown">
           {searchResults.map((student) => (
-            <li key={student.user_id} onClick={() => handleSelect(student)}>
-              {student.name} ({student.reg_no})
+            <li key={student.user_id} onClick={() => handleSelect(student)} className="fm-search-result">
+              <span>{student.name} ({student.reg_no})</span>
+              <span className="hall-update-hint">click to edit</span>
+
             </li>
           ))}
         </ul>

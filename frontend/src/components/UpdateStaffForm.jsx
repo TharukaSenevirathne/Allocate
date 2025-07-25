@@ -117,8 +117,10 @@ const UpdateStaffForm = () => {
       {searchResults.length > 0 && (
         <ul className="fm-search-dropdown">
           {searchResults.map((staff) => (
-            <li key={staff.staff_id} onClick={() => handleSelect(staff)}>
-              {staff.name} ({staff.reg_number})
+            <li key={staff.staff_id} onClick={() => handleSelect(staff)} className="fm-search-result">
+              <span>{staff.name} ({staff.reg_number})</span>
+             <span className="hall-update-hint">click to edit</span>
+
             </li>
           ))}
         </ul>

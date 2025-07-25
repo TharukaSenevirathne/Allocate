@@ -112,9 +112,12 @@ const UpdateHallForm = () => {
       {searchResults.length > 0 && (
         <ul className="fm-search-dropdown">
           {searchResults.map((hall) => (
-            <li key={hall.hall_id} onClick={() => handleSelect(hall)}>
-              {hall.name} ({hall.main_building})
-            </li>
+            <li key={hall.hall_id} onClick={() => handleSelect(hall)} className="fm-search-result">
+            <span className="hall-name">{hall.name}</span>
+            <span className="hall-building">({hall.main_building})</span>
+            <span className="hall-update-hint">click to edit</span>
+          </li>
+            
           ))}
         </ul>
       )}
@@ -144,9 +147,9 @@ const UpdateHallForm = () => {
               required
             >
               <option value="">Select Main Building</option>
-              <option value="Admin">Admin</option>
-              <option value="New Lecture Hall Building">New Lecture Hall Building</option>
-              <option value="Old Lecture Hall Building">Old Lecture Hall Building</option>
+              <option value="-">No Main Building</option>
+              <option value="Applied Science - Faculty Building">Applied Science Faculty Building</option>
+              <option value="Faculty Building">Faculty Building</option>
           </select>
             <div className="fm-select-arrow">▼</div>
           </div>
