@@ -5,7 +5,20 @@ const UpdateStudentForm = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [formData, setFormData] = useState(null);
   const [selectedStudentId, setSelectedStudentId] = useState(null);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" or "error"
   const id = null;
+
+  // Auto-clear message after 5 seconds
+  useEffect(() => {
+    if (message) {
+      const timeout = setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [message]);
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -28,6 +41,8 @@ const UpdateStudentForm = () => {
           });
         } catch (err) {
           console.error("Failed to fetch student:", err);
+          setMessage("❌ Failed to fetch student data.");
+          setMessageType("error");
         }
       }
     };
@@ -41,6 +56,8 @@ const UpdateStudentForm = () => {
       setSearchResults(data);
     } catch (err) {
       console.error("Search error:", err);
+      setMessage("❌ Search failed.");
+      setMessageType("error");
     }
   };
 
@@ -65,6 +82,8 @@ const UpdateStudentForm = () => {
       setSearchQuery("");
     } catch (err) {
       console.error("❌ Failed to fetch full student data:", err);
+      setMessage("❌ Failed to fetch student details.");
+      setMessageType("error");
     }
   };
 
@@ -83,14 +102,18 @@ const UpdateStudentForm = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        alert("Student updated successfully!");
+        setMessage("✅ Student updated successfully!");
+        setMessageType("success");
         setFormData(null);
         setSelectedStudentId(null);
       } else {
-        alert("Error: " + (data.error || "Failed to update student"));
+        setMessage("❌ " + (data.error || "Failed to update student"));
+        setMessageType("error");
       }
     } catch (err) {
       console.error("Update error:", err);
+      setMessage("❌ Something went wrong during update.");
+      setMessageType("error");
     }
   };
 
@@ -100,6 +123,12 @@ const UpdateStudentForm = () => {
         <h2 className="fm-form-title">Update Student</h2>
         <div className="fm-form-icon">👨‍🎓</div>
       </div>
+
+      {message && (
+        <div className={`fm-message ${messageType === "success" ? "fm-message-success" : "fm-message-error"}`}>
+          {message}
+        </div>
+      )}
 
       <div className="fm-form-group fm-search-group">
         <input
@@ -160,12 +189,9 @@ const UpdateStudentForm = () => {
           <div className="fm-form-group">
             <select name="department" value={formData.department} onChange={handleChange} className="fm-form-select" required>
               <option value="">Select Department</option>
-              <option value="Common">Common</option>
-              <option value="Computer">Computer</option>
-              <option value="EIE">EIE</option>
-              <option value="CEE">CEE</option>
-              <option value="MENA">MENA</option>
-              <option value="MME">MME</option>
+              <option value="CIS">CIS</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Data Science">Data Science</option>
             </select>
             <div className="fm-select-arrow">▼</div>
           </div>
@@ -173,11 +199,11 @@ const UpdateStudentForm = () => {
           <div className="fm-form-group">
             <select name="batch" value={formData.batch} onChange={handleChange} className="fm-form-select" required>
               <option value="">Select Batch</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
               <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
             </select>
             <div className="fm-select-arrow">▼</div>
           </div>

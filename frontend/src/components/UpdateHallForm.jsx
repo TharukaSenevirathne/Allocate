@@ -147,8 +147,6 @@ const UpdateHallForm = () => {
               <option value="Admin">Admin</option>
               <option value="New Lecture Hall Building">New Lecture Hall Building</option>
               <option value="Old Lecture Hall Building">Old Lecture Hall Building</option>
-              <option value="New Lecture Hall Building">New Lecture Hall Building</option>
-            <option value="Old Lecture Hall Building">Old Lecture Hall Building</option>
           </select>
             <div className="fm-select-arrow">▼</div>
           </div>
