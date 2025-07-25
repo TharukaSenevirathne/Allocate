@@ -9,6 +9,16 @@ const UpdateStudentForm = () => {
   const [messageType, setMessageType] = useState(""); // "success" or "error"
   const id = null;
 
+  // Department short codes helper
+  const getDeptCode = (dept) => {
+    const departmentCodes = {
+      "CIS": "CIS",
+      "Software Engineering": "SE",
+      "Data Science": "DS"
+    };
+    return departmentCodes[dept] || "";
+  };
+
   // Auto-clear message after 5 seconds
   useEffect(() => {
     if (message) {
@@ -150,7 +160,6 @@ const UpdateStudentForm = () => {
             <li key={student.user_id} onClick={() => handleSelect(student)} className="fm-search-result">
               <span>{student.name} ({student.reg_no})</span>
               <span className="hall-update-hint">click to edit</span>
-
             </li>
           ))}
         </ul>
@@ -158,36 +167,14 @@ const UpdateStudentForm = () => {
 
       {formData && (
         <form onSubmit={handleUpdate}>
+          {/* Name */}
           <div className="fm-form-group">
             <input type="text" name="name" value={formData.name} onChange={handleChange} className="fm-form-input" required />
             <label className="fm-form-label">Name</label>
             <div className="fm-form-line"></div>
           </div>
 
-          <div className="fm-form-group">
-            <input type="text" name="reg_no" value={formData.reg_no} onChange={handleChange} className="fm-form-input" required />
-            <label className="fm-form-label">Registration Number</label>
-            <div className="fm-form-line"></div>
-          </div>
-
-          <div className="fm-form-group">
-            <input type="email" name="email" value={formData.email} onChange={handleChange} className="fm-form-input" required />
-            <label className="fm-form-label">Email</label>
-            <div className="fm-form-line"></div>
-          </div>
-
-          <div className="fm-form-group">
-            <input type="text" name="contact_no" value={formData.contact_no} onChange={handleChange} className="fm-form-input" required />
-            <label className="fm-form-label">Contact Number</label>
-            <div className="fm-form-line"></div>
-          </div>
-
-          <div className="fm-form-group">
-            <input type="text" name="lecturer_in_charge" value={formData.lecturer_in_charge} onChange={handleChange} className="fm-form-input" required />
-            <label className="fm-form-label">Lecturer in Charge</label>
-            <div className="fm-form-line"></div>
-          </div>
-
+          {/* Department */}
           <div className="fm-form-group">
             <select name="department" value={formData.department} onChange={handleChange} className="fm-form-select" required>
               <option value="">Select Department</option>
@@ -198,6 +185,7 @@ const UpdateStudentForm = () => {
             <div className="fm-select-arrow">▼</div>
           </div>
 
+          {/* Batch */}
           <div className="fm-form-group">
             <select name="batch" value={formData.batch} onChange={handleChange} className="fm-form-select" required>
               <option value="">Select Batch</option>
@@ -210,6 +198,52 @@ const UpdateStudentForm = () => {
             <div className="fm-select-arrow">▼</div>
           </div>
 
+          {/* Registration Number */}
+          <div className="fm-form-group">
+            <input
+              type="text"
+              value={`${formData.batch || ""}${getDeptCode(formData.department)}${formData.reg_no?.slice((formData.batch || "").length + getDeptCode(formData.department).length) || ""}`}
+              onChange={(e) => {
+                const prefix = `${formData.batch || ""}${getDeptCode(formData.department)}`;
+                const inputValue = e.target.value.toUpperCase();
+                if (inputValue.startsWith(prefix)) {
+                  const digits = inputValue.slice(prefix.length).replace(/\D/g, "").slice(0, 3);
+                  setFormData(prev => ({
+                    ...prev,
+                    reg_no: `${prefix}${digits}`
+                  }));
+                }
+              }}
+              className="fm-form-input"
+              required
+              disabled={!formData.batch || !formData.department}
+            />
+            <label className="fm-form-label">Registration Number</label>
+            <div className="fm-form-line"></div>
+          </div>
+
+          {/* Email */}
+          <div className="fm-form-group">
+            <input type="email" name="email" value={formData.email} onChange={handleChange} className="fm-form-input" required />
+            <label className="fm-form-label">Email</label>
+            <div className="fm-form-line"></div>
+          </div>
+
+          {/* Contact Number */}
+          <div className="fm-form-group">
+            <input type="text" name="contact_no" value={formData.contact_no} onChange={handleChange} className="fm-form-input" required />
+            <label className="fm-form-label">Contact Number</label>
+            <div className="fm-form-line"></div>
+          </div>
+
+          {/* Lecturer in Charge */}
+          <div className="fm-form-group">
+            <input type="text" name="lecturer_in_charge" value={formData.lecturer_in_charge} onChange={handleChange} className="fm-form-input" required />
+            <label className="fm-form-label">Lecturer in Charge</label>
+            <div className="fm-form-line"></div>
+          </div>
+
+          {/* Purpose */}
           <div className="fm-form-group">
             <select name="purpose" value={formData.purpose} onChange={handleChange} className="fm-form-select">
               <option value="">Select Purpose</option>
@@ -220,6 +254,7 @@ const UpdateStudentForm = () => {
             <div className="fm-select-arrow">▼</div>
           </div>
 
+          {/* Society Name */}
           {formData.purpose === "Chair" && (
             <div className="fm-form-group">
               <input type="text" name="society_name" value={formData.society_name} onChange={handleChange} className="fm-form-input" required />
@@ -228,6 +263,7 @@ const UpdateStudentForm = () => {
             </div>
           )}
 
+          {/* Password (optional reset) */}
           <div className="fm-form-group">
             <input type="password" name="password" value={formData.password} onChange={handleChange} className="fm-form-input" placeholder=" " />
             <label className="fm-form-label">Reset Password (optional)</label>

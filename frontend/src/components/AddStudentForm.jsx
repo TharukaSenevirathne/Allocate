@@ -15,7 +15,7 @@ const AddStudentForm = () => {
     password: ""
   });
 
-  const [regDigits, setRegDigits] = useState("");
+  const [regSuffix, setRegSuffix] = useState(""); // last 3 digits
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // "success" or "error"
 
@@ -40,14 +40,13 @@ const AddStudentForm = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
-      ...(name === "department" || name === "batch") && { reg_no: "" }
+      [name]: value
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const reg_no = `${formData.batch}${departmentCodes[formData.department] || ""}${regDigits}`;
+    const reg_no = `${formData.batch}${departmentCodes[formData.department] || ""}${regSuffix}`;
 
     try {
       const response = await fetch("http://localhost:5000/api/students", {
@@ -75,7 +74,7 @@ const AddStudentForm = () => {
           lecturer_in_charge: "",
           password: ""
         });
-        setRegDigits("");
+        setRegSuffix("");
       } else {
         const data = await response.json();
         setMessage("❌ Failed to add student: " + (data.error || "Unknown error"));
@@ -88,9 +87,8 @@ const AddStudentForm = () => {
     }
   };
 
-  const fullRegNo = formData.batch && formData.department
-    ? `${formData.batch}${departmentCodes[formData.department] || ""}${regDigits}`
-    : "";
+  const regPrefix = `${formData.batch || ""}${departmentCodes[formData.department] || ""}`;
+  const fullRegNo = `${regPrefix}${regSuffix}`;
 
   return (
     <div className="fm-form-card">
@@ -137,34 +135,28 @@ const AddStudentForm = () => {
           <div className="fm-select-arrow">▼</div>
         </div>
 
-        {/* Reg No - Digits input */}
+        {/* Registration Number */}
         <div className="fm-form-group">
           <input
             type="text"
-            name="regDigits"
-            inputMode="numeric"
+            value={fullRegNo}
             onChange={(e) => {
-              const digits = e.target.value.replace(/\D/g, "").slice(0, 4);
-              setRegDigits(digits);
+              const fullValue = e.target.value.toUpperCase();
+              const prefix = `${formData.batch || ""}${departmentCodes[formData.department] || ""}`;
+
+              if (!formData.batch || !formData.department) return;
+
+              if (fullValue.startsWith(prefix)) {
+                const suffix = fullValue.slice(prefix.length).replace(/\D/g, "").slice(0, 3);
+                setRegSuffix(suffix);
+              } else {
+                setRegSuffix("");
+              }
             }}
-            value={regDigits}
             className="fm-form-input"
             placeholder=" "
             required
             disabled={!formData.batch || !formData.department}
-          />
-          <label className="fm-form-label">Last 3–4 Digits</label>
-          <div className="fm-form-line"></div>
-        </div>
-
-        {/* Display Full Reg No */}
-        <div className="fm-form-group">
-          <input
-            type="text"
-            className="fm-form-input"
-            value={fullRegNo}
-            readOnly
-            placeholder=" "
           />
           <label className="fm-form-label">Registration Number</label>
           <div className="fm-form-line"></div>
