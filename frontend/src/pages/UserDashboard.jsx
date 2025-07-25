@@ -46,7 +46,7 @@ export default function UserDashboard() {
               </button>
               <button
                 className="admin-nav-button"
-                onClick={() => navigate('/hall-list')}
+                onClick={() => navigate('/uhall-list')}
               >
                 View Hall List
               </button>

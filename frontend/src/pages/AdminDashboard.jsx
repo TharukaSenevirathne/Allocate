@@ -32,7 +32,6 @@ export default function AdminDashboard() {
   const [showAddNoteForm, setShowAddNoteForm] = useState(false);
  
   const [specialNotes, setSpecialNotes] = useState([]);
-navigate('/hall-list', { state: { from: '/admin-dashboard' } })
 
   // ✅ Fetch special notes from backend
   const fetchNotes = async () => {

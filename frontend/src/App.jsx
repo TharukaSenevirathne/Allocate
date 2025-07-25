@@ -9,6 +9,7 @@ import { TimeTable } from "./components/TimeTable";
 import { HallBookings } from "./pages/HallBookings";
 import UserDashboard from "./pages/UserDashboard";
 import StudentList from "./pages/StudentList";
+import HallListUser from "./pages/HallListUser";
 
 function App() {
   return (
@@ -22,10 +23,12 @@ function App() {
         <Route path="/staff-list" element={<StaffList />} />
         <Route path="/student-list" element={<StudentList />} />
         <Route path="/hall-list" element={<HallList />} />
+        <Route path="/uhall-list" element={<HallListUser />} />
         <Route path="/hall/:id" element={<Hall />} />
         <Route path="/time-table" element={<TimeTable />} />
         <Route path="/hall-time-table/:hallId" element={<HallBookings />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
+
 
 
 
