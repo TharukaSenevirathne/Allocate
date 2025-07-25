@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+
 import AddHallForm from '../components/AddHallForm';
 import AddStaffForm from '../components/AddStaffForm';
 import AddStudentForm from '../components/AddStudentForm';
@@ -29,7 +30,9 @@ export default function AdminDashboard() {
   const [selectedForm, setSelectedForm] = useState(null);
   const [showNotes, setShowNotes] = useState(false);
   const [showAddNoteForm, setShowAddNoteForm] = useState(false);
+ 
   const [specialNotes, setSpecialNotes] = useState([]);
+navigate('/hall-list', { state: { from: '/admin-dashboard' } })
 
   // ✅ Fetch special notes from backend
   const fetchNotes = async () => {

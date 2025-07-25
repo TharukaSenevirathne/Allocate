@@ -122,7 +122,7 @@ const AddNoteForm = ({ mode = "add", existingNote = null, onSuccess }) => {
             rows={4}
             required
           />
-          <label className="fm-form-label">Add Note</label>
+          <label className="fm-form-label-note">Add Note</label>
           <div className="fm-form-line"></div>
         </div>
 

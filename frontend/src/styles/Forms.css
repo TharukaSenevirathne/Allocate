@@ -414,16 +414,6 @@ body {
   border-bottom-color: #088484;
 }
 
-.fm-form-label {
-  position: absolute;
-  pointer-events: none;
-  left: 12px;
-  top: 12px;
-  transition: 0.2s ease all;
-  color: #ffffff;
-  font-size: 1rem;
-}
-
 .fm-form-textarea:focus ~ .fm-form-label,
 .fm-form-textarea:not(:placeholder-shown) ~ .fm-form-label {
  color: transparent;
@@ -432,4 +422,28 @@ body {
 .fm-form-group {
   position: relative;
   margin-top: 1.5rem;
+}
+
+.fm-form-label-note {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  font-size: 1rem;
+  color: white;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Float when input has value or focus */
+.fm-form-group input:focus + .fm-form-label-note,
+.fm-form-group input:not(:placeholder-shown) + .fm-form-label,
+.fm-form-group select:focus + .fm-form-label-note,
+.fm-form-group select:valid + .fm-form-label-note,
+.fm-form-group textarea:focus + .fm-form-label-note,
+.fm-form-group textarea:not(:placeholder-shown) + .fm-form-label {
+  top: -20px;
+  left: -2px;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  padding: 0 0.25rem;
 }

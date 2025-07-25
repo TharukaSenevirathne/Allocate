@@ -69,6 +69,7 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Special Notices Panel */}
         <div className="allocate-notices-panel allocate-animate-element">
           <div className="allocate-notices-content">
             <h3>Special Notices</h3>

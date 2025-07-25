@@ -154,7 +154,7 @@ body.allocate-home-active {
 .allocate-notices-panel {
   width: 350px;
   margin-top: 50px;
-  margin-left: 150px;
+  margin-left: 280px;
   margin-right: 10px;
   display:block;
   align-items: center;
@@ -211,6 +211,9 @@ body.allocate-home-active {
   opacity: 0;
   transform: translateX(30px);
   animation: fadeInRight 0.8s forwards 1s;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 @keyframes fadeInUp {
   from {
