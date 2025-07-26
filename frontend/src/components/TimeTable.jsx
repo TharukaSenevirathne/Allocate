@@ -3,7 +3,7 @@ import { DateNavigation } from './DateNavigation';
 import { TimeTableContent } from './TimeTableContent';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import loadingLogo from '../assets/logo.png'; // your logo path here
+import loadingLogo from '../assets/logo.png';
 import './TimeTable.css';
 
 export const TimeTable = () => {
@@ -14,7 +14,7 @@ export const TimeTable = () => {
   const [showLoader, setShowLoader] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch halls
+  // Fetch halls on initial load
   useEffect(() => {
     const fetchHalls = async () => {
       const start = Date.now();
@@ -35,11 +35,12 @@ export const TimeTable = () => {
     fetchHalls();
   }, []);
 
-  // Fetch timetable for selected date
+  // Fetch timetable for the selected date
   useEffect(() => {
     const fetchTimetable = async () => {
       try {
-        const formattedDate = currentDate.toISOString().split("T")[0];
+        // ✅ Use local time to avoid date shifting due to UTC
+        const formattedDate = currentDate.toLocaleDateString('en-CA'); // YYYY-MM-DD
         console.log("🟡 [1] Requesting timetable for date:", formattedDate);
 
         const res = await axios.get(`http://localhost:5000/api/info?date=${formattedDate}`);
@@ -47,7 +48,6 @@ export const TimeTable = () => {
         console.log("🟢 [2] Raw timetable response from backend:", data);
 
         const mapped = {};
-
         data.forEach(entry => {
           const hall = entry.hall_name.trim();
           const startTime = entry.start_time.substring(0, 5); // HH:mm
@@ -57,7 +57,6 @@ export const TimeTable = () => {
           let [sh, sm] = startTime.split(":").map(Number);
           let [eh, em] = endTime.split(":").map(Number);
 
-          // Convert to total minutes
           let start = sh * 60 + sm;
           let end = eh * 60 + em;
 
@@ -80,7 +79,7 @@ export const TimeTable = () => {
     fetchTimetable();
   }, [currentDate]);
 
-  // Fade out loader after loading finishes with 0.5s delay
+  // Fade out loader after loading finishes
   useEffect(() => {
     if (!loading) {
       setTimeout(() => setShowLoader(false), 500);
@@ -139,10 +138,12 @@ export const TimeTable = () => {
           <h1 className="timetable-title">Timetable</h1>
           <button className="home-button" onClick={() => navigate(-1)}>Back</button>
         </div>
+
         <DateNavigation
           currentDate={currentDate}
           onDateChange={setCurrentDate}
         />
+
         <div className="timetable-wrapper">
           {halls.length === 0 ? (
             <p>Loading halls...</p>

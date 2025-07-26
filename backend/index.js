@@ -13,10 +13,8 @@ import notesRoutes from "./routes/notes.js";
 
 
 
- 
 
 const app = express();
-
 // ✅ MySQL connection pool
 const pool = mysql.createPool({
   host: "b19tzb1onayr8xrfqneh-mysql.services.clever-cloud.com",
