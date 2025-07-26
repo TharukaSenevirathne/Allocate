@@ -306,11 +306,12 @@ const BookLectureEventForm = () => {
                   className="fm-form-select"
                   required
                 >
-                  <option value="">Target Batch</option>
-                  <option value="22">22</option>
-                  <option value="23">23</option>
-                  <option value="24">24</option>
-                  <option value="25">25</option>
+              <option value="">Target Batch</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
                   <option value="All">All</option>
                 </select>
                 <div className="fm-select-arrow">▼</div>
@@ -324,12 +325,10 @@ const BookLectureEventForm = () => {
                   required
                 >
                   <option value="">Select Department</option>
-                  <option value="Computer">Computer</option>
-                  <option value="EIE">EIE</option>
-                  <option value="CEE">CEE</option>
-                  <option value="MENA">MENA</option>
-                  <option value="MME">MME</option>
-                  <option value="Common">Common</option>
+                  <option value="All">All</option>
+                  <option value="CIS">CIS</option>
+                  <option value="Software Engineering">Software Engineering</option>
+                  <option value="Data Science">Data Science</option>
                 </select>
                 <div className="fm-select-arrow">▼</div>
               </div>

@@ -10,6 +10,9 @@ import { HallBookings } from "./pages/HallBookings";
 import UserDashboard from "./pages/UserDashboard";
 import StudentList from "./pages/StudentList";
 import HallListUser from "./pages/HallListUser";
+import StaffDashboard from "./pages/StaffDashboard";
+import StudentListStaff from "./pages/StudentListStaff";
+import StaffListStaff from "./pages/StaffListStaff";
 
 function App() {
   return (
@@ -20,8 +23,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/staff-list" element={<StaffList />} />
+        <Route path="/ustaff-list" element={<StaffListStaff />} />
         <Route path="/student-list" element={<StudentList />} />
+        <Route path="/ustudent-list" element={<StudentListStaff />} />
         <Route path="/hall-list" element={<HallList />} />
         <Route path="/uhall-list" element={<HallListUser />} />
         <Route path="/hall/:id" element={<Hall />} />

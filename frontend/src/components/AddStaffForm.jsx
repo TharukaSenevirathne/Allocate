@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Eye, EyeOff } from "lucide-react"; // 👈 Import icons
 import '../styles/Forms.css';
-
 
 const AddStaffForm = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,7 @@ const AddStaffForm = () => {
 
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // "success" or "error"
+  const [showPassword, setShowPassword] = useState(false); // 👈 Password toggle
 
   useEffect(() => {
     if (message) {
@@ -111,9 +112,10 @@ const AddStaffForm = () => {
         </div>
         <div className="fm-form-group">
           <select name="department" value={formData.department} onChange={handleChange} className="fm-form-select" required>
+            <option value="Admin">Admin</option>
             <option value="CIS">CIS</option>
             <option value="Data Science">Data Science</option>
-            <option value="Software Engineering">Software Engineerin</option>
+            <option value="Software Engineering">Software Engineering</option>
           </select>
           <div className="fm-select-arrow">▼</div>
         </div>
@@ -127,14 +129,40 @@ const AddStaffForm = () => {
         {formData.staffType === "Academic" && (
           <div className="fm-form-group">
             <input type="text" name="teachingModules" value={formData.teachingModules} onChange={handleChange} className="fm-form-input" placeholder=" " />
-            <label className="fm-form-label">Teaching Modules (e.g., EE2344,IS2455)</label>
+            <label className="fm-form-label">Teaching Modules (e.g., SE2344,IS2455)</label>
             <div className="fm-form-line"></div>
           </div>
         )}
-        <div className="fm-form-group">
-          <input type="password" name="password" value={formData.password} onChange={handleChange} className="fm-form-input" placeholder=" " required />
+        <div className="fm-form-group" style={{ position: "relative" }}>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="fm-form-input"
+            placeholder=" "
+            required
+          />
           <label className="fm-form-label">Set Password</label>
           <div className="fm-form-line"></div>
+
+          <button
+            type="button"
+            onClick={() => setShowPassword(prev => !prev)}
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: "10px",
+              transform: "translateY(-50%)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              color: "#666"
+            }}
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
         </div>
         <div className="fm-form-button-container">
           <button type="submit" className="fm-form-button">

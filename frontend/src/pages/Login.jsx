@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import '../styles/Login.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Eye, EyeOff } from 'lucide-react';  // <-- import icons
 
 export default function Login() {
   const [formData, setFormData] = useState({
     reg_no: '',
     password: '',
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [message, setMessage] = useState({ type: '', text: '' });
 
@@ -20,7 +23,6 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Hardcoded admin (optional)
     if (formData.reg_no === 'admin' && formData.password === 'admin123') {
       setMessage({ type: 'success', text: 'Admin login successful!' });
       setTimeout(() => navigate('/admin-dashboard'), 1000);
@@ -38,6 +40,8 @@ export default function Login() {
       setTimeout(() => {
         if (res.data.userType === 'Admin') {
           navigate('/admin-dashboard');
+        } else if (res.data.userType === 'Staff') {
+          navigate('/staff-dashboard');
         } else {
           navigate('/user-dashboard');
         }
@@ -70,9 +74,9 @@ export default function Login() {
           <label>Registration Number</label>
         </div>
 
-        <div className="login-form-group">
+        <div className="login-form-group" style={{ position: 'relative' }}>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             name="password"
             placeholder=" "
             value={formData.password}
@@ -80,6 +84,24 @@ export default function Login() {
             required
           />
           <label>Password</label>
+
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: 'absolute',
+              right: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              cursor: 'pointer',
+              color: '#555',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </span>
         </div>
 
         <button type="submit">Confirm</button>

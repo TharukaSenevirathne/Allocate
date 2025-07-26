@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Eye, EyeOff } from "lucide-react"; // 👈 Import Lucide icons
 
 const UpdateStaffForm = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -7,6 +8,7 @@ const UpdateStaffForm = () => {
   const [selectedStaffId, setSelectedStaffId] = useState(null);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // success | error
+  const [showPassword, setShowPassword] = useState(false); // 👈 NEW
 
   useEffect(() => {
     if (message) {
@@ -119,8 +121,7 @@ const UpdateStaffForm = () => {
           {searchResults.map((staff) => (
             <li key={staff.staff_id} onClick={() => handleSelect(staff)} className="fm-search-result">
               <span>{staff.name} ({staff.reg_number})</span>
-             <span className="hall-update-hint">click to edit</span>
-
+              <span className="hall-update-hint">click to edit</span>
             </li>
           ))}
         </ul>
@@ -157,10 +158,11 @@ const UpdateStaffForm = () => {
               className="fm-form-select"
               required
             >
-               <option value="CIS">CIS</option>
-            <option value="Data Science">Data Science</option>
-            <option value="Software Engineering">Software Engineerin</option>
-          </select>
+              <option value="Admin">Admin</option>
+              <option value="CIS">CIS</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Software Engineering">Software Engineering</option>
+            </select>
             <div className="fm-select-arrow">▼</div>
           </div>
 
@@ -193,9 +195,9 @@ const UpdateStaffForm = () => {
             </div>
           )}
 
-          <div className="fm-form-group">
+          <div className="fm-form-group" style={{ position: "relative" }}>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
@@ -204,6 +206,24 @@ const UpdateStaffForm = () => {
             />
             <label className="fm-form-label">Reset Password (optional)</label>
             <div className="fm-form-line"></div>
+
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: "10px",
+                transform: "translateY(-50%)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                color: "#666"
+              }}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
 
           <div className="fm-form-button-container">

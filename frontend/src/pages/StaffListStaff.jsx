@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDownIcon, Trash2Icon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import "../styles/StaffList.css";
 
-const StaffList = () => {
+const StaffListStaff = () => {
   const [staffType, setStaffType] = useState("academic");
   const [sortBy, setSortBy] = useState("name");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [staffData, setStaffData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Modal state
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedStaff, setSelectedStaff] = useState(null);
-  const [deleteError, setDeleteError] = useState(null);
 
   const fetchStaffData = async () => {
     try {
@@ -45,39 +40,6 @@ const StaffList = () => {
   const handleSortChange = (field) => {
     setSortBy(field);
     setIsDropdownOpen(false);
-  };
-
-  // Open delete modal
-  const openDeleteModal = (staff) => {
-    setSelectedStaff(staff);
-    setDeleteError(null);
-    setDeleteModalOpen(true);
-  };
-
-  // Close modal
-  const closeDeleteModal = () => {
-    setDeleteModalOpen(false);
-    setSelectedStaff(null);
-    setDeleteError(null);
-  };
-
-  // Delete staff API call
-  const handleDelete = async () => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/staff/${selectedStaff.staff_id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Failed to delete staff");
-      }
-      // Refresh list and close modal
-      await fetchStaffData();
-      closeDeleteModal();
-    } catch (err) {
-      console.error("❌ Delete error:", err);
-      setDeleteError(err.message);
-    }
   };
 
   return (
@@ -136,7 +98,6 @@ const StaffList = () => {
                       <th>Department</th>
                       <th>Email</th>
                       <th>Contact No.</th>
-                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -147,15 +108,6 @@ const StaffList = () => {
                         <td>{staff.department}</td>
                         <td>{staff.email}</td>
                         <td>{staff.contact_number}</td>
-                        <td>
-                          <button
-                            className="delete-button"
-                            onClick={() => openDeleteModal(staff)}
-                            title={`Delete ${staff.name}`}
-                          >
-                            <Trash2Icon className="delete-icon" /> Delete
-                          </button>
-                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -165,28 +117,8 @@ const StaffList = () => {
           </div>
         </div>
       </div>
-
-      {/* Delete Confirmation Modal */}
-      {deleteModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-box">
-            <h3>Confirm Deletion</h3>
-            <p>Are you sure you want to delete <strong>{selectedStaff.name}</strong>?</p>
-            {deleteError && <p className="error-message">{deleteError}</p>}
-
-            <div className="modal-buttons">
-              <button className="confirm-btn" onClick={handleDelete}>
-                Yes, Delete
-              </button>
-              <button className="cancel-btn" onClick={closeDeleteModal}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default StaffList;
+export default StaffListStaff;

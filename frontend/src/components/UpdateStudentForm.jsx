@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Eye, EyeOff } from "lucide-react"; // 👈 import icons
 
 const UpdateStudentForm = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -7,9 +8,9 @@ const UpdateStudentForm = () => {
   const [selectedStudentId, setSelectedStudentId] = useState(null);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // "success" or "error"
+  const [showPassword, setShowPassword] = useState(false); // 👈 for toggling password visibility
   const id = null;
 
-  // Department short codes helper
   const getDeptCode = (dept) => {
     const departmentCodes = {
       "CIS": "CIS",
@@ -19,7 +20,6 @@ const UpdateStudentForm = () => {
     return departmentCodes[dept] || "";
   };
 
-  // Auto-clear message after 5 seconds
   useEffect(() => {
     if (message) {
       const timeout = setTimeout(() => {
@@ -167,14 +167,12 @@ const UpdateStudentForm = () => {
 
       {formData && (
         <form onSubmit={handleUpdate}>
-          {/* Name */}
           <div className="fm-form-group">
             <input type="text" name="name" value={formData.name} onChange={handleChange} className="fm-form-input" required />
             <label className="fm-form-label">Name</label>
             <div className="fm-form-line"></div>
           </div>
 
-          {/* Department */}
           <div className="fm-form-group">
             <select name="department" value={formData.department} onChange={handleChange} className="fm-form-select" required>
               <option value="">Select Department</option>
@@ -185,7 +183,6 @@ const UpdateStudentForm = () => {
             <div className="fm-select-arrow">▼</div>
           </div>
 
-          {/* Batch */}
           <div className="fm-form-group">
             <select name="batch" value={formData.batch} onChange={handleChange} className="fm-form-select" required>
               <option value="">Select Batch</option>
@@ -198,7 +195,6 @@ const UpdateStudentForm = () => {
             <div className="fm-select-arrow">▼</div>
           </div>
 
-          {/* Registration Number */}
           <div className="fm-form-group">
             <input
               type="text"
@@ -222,28 +218,24 @@ const UpdateStudentForm = () => {
             <div className="fm-form-line"></div>
           </div>
 
-          {/* Email */}
           <div className="fm-form-group">
             <input type="email" name="email" value={formData.email} onChange={handleChange} className="fm-form-input" required />
             <label className="fm-form-label">Email</label>
             <div className="fm-form-line"></div>
           </div>
 
-          {/* Contact Number */}
           <div className="fm-form-group">
             <input type="text" name="contact_no" value={formData.contact_no} onChange={handleChange} className="fm-form-input" required />
             <label className="fm-form-label">Contact Number</label>
             <div className="fm-form-line"></div>
           </div>
 
-          {/* Lecturer in Charge */}
           <div className="fm-form-group">
             <input type="text" name="lecturer_in_charge" value={formData.lecturer_in_charge} onChange={handleChange} className="fm-form-input" required />
             <label className="fm-form-label">Lecturer in Charge</label>
             <div className="fm-form-line"></div>
           </div>
 
-          {/* Purpose */}
           <div className="fm-form-group">
             <select name="purpose" value={formData.purpose} onChange={handleChange} className="fm-form-select">
               <option value="">Select Purpose</option>
@@ -254,7 +246,6 @@ const UpdateStudentForm = () => {
             <div className="fm-select-arrow">▼</div>
           </div>
 
-          {/* Society Name */}
           {formData.purpose === "Chair" && (
             <div className="fm-form-group">
               <input type="text" name="society_name" value={formData.society_name} onChange={handleChange} className="fm-form-input" required />
@@ -263,11 +254,35 @@ const UpdateStudentForm = () => {
             </div>
           )}
 
-          {/* Password (optional reset) */}
-          <div className="fm-form-group">
-            <input type="password" name="password" value={formData.password} onChange={handleChange} className="fm-form-input" placeholder=" " />
+          <div className="fm-form-group" style={{ position: "relative" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="fm-form-input"
+              placeholder=" "
+            />
             <label className="fm-form-label">Reset Password (optional)</label>
             <div className="fm-form-line"></div>
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: "10px",
+                transform: "translateY(-50%)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                color: "#666"
+              }}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
 
           <div className="fm-form-button-container">

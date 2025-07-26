@@ -8,12 +8,13 @@ import {
   Monitor,
   User,
 } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // <-- added useNavigate
 import axios from "axios";
 import "../styles/Hall.css";
 
 const Hall = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // <-- added navigate
   const [selectedDate, setSelectedDate] = useState("");
   const [showBookedSlots, setShowBookedSlots] = useState(false);
   const [hallData, setHallData] = useState(null);
@@ -73,6 +74,23 @@ const Hall = () => {
   return (
     <div className="hall-container">
       <div className="hall-content-card">
+        {/* Back button added here */}
+        <button
+          className="hall-back-button"
+          onClick={() => navigate(-1)}
+          style={{
+            marginBottom: "1rem",
+            backgroundColor: "#eee",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            padding: "6px 12px",
+            cursor: "pointer",
+            alignSelf: "flex-start",
+          }}
+        >
+          ← Back
+        </button>
+
         <div className="hall-header">
           <h1 className="hall-title">{hallData.name}</h1>
           <p className="hall-subtitle">Booking Information & Availability</p>

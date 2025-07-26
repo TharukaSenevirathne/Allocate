@@ -164,13 +164,17 @@ router.get("/staff", async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve staff data" });
   }
 });
-
 router.delete('/staff/:id', async (req, res) => {
   const db = req.db;
   const id = req.params.id;
 
   try {
+    // Delete related records from staff_modules first
+    await db.query('DELETE FROM staff_modules WHERE staff_id = ?', [id]);
+
+    // Now delete the staff member
     const [result] = await db.query('DELETE FROM staff WHERE staff_id = ?', [id]);
+
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: 'Staff member not found' });
     }
